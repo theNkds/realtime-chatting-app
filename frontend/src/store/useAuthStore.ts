@@ -145,7 +145,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
         const socket = io(
             // BASE_URL, 
-            "https://realtime-chatting-app-yqaf.vercel.app/", 
+            // "https://realtime-chatting-app-yqaf.vercel.app/", 
+            "https://realtime-chatting-app-hcn1.onrender.com", 
             {
                 query: {
                     userId: authUser._id,
