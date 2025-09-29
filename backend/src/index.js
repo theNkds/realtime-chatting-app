@@ -2,7 +2,7 @@ import express from "express";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import dotenv from "dotenv";
-import { connectDB } from "./lib/db.js";
+import connectDB from "./lib/db.js";
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
 import { app, server } from "./lib/socket.js";
@@ -10,7 +10,7 @@ import path from "path";
 
 dotenv.config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5002;
 const __dirname = path.resolve();
 
 app.use(express.json());
@@ -32,7 +32,27 @@ app.use("/api/messages", messageRoutes);
 //     })
 // }
 
-server.listen(PORT, () => {
-    connectDB();
-    console.log(`Server is running on port ${PORT}`); 
-});
+// Get the MongoDB URI from the environment variables.
+const uri = process.env.MONGODB_URI;
+
+// Start the server.
+const startServer = async () => {
+    try {
+        // Connect to the MongoDB database.
+        await connectDB(uri);
+        // Listen on the specified port.
+        // app.listen(port, () => {
+        //     console.log("Server is listening on port", port);
+        // });
+        server.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`); 
+            // connectDB();
+        });
+    } catch (error) {
+        console.log(error); 
+    }
+};
+
+// Start the server.
+startServer();
+
