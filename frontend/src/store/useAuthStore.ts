@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { io, Socket } from "socket.io-client";
 
 // const BASE_URL: string = import.meta.env.MODE === "development" ? "http://localhost:5001/" : "/";
-const BASE_URL: string = "https://realtime-chatting-app-yqaf.vercel.app/";
+// const BASE_URL: string = "https://realtime-chatting-app-yqaf.vercel.app/";
 // Définition du type utilisateur (à adapter selon ton backend)
 export interface AuthUser {
     _id: string;
@@ -143,11 +143,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         const { authUser } = get();
         if (!authUser || get().socket?.connected) return;
 
-        const socket = io(BASE_URL, {
-            query: {
-                userId: authUser._id,
-            },
-        });
+        const socket = io(
+            // BASE_URL, 
+            "https://realtime-chatting-app-yqaf.vercel.app", 
+            {
+                query: {
+                    userId: authUser._id,
+                },
+                withCredentials: true,
+                transports: ["websocket"], // évite les problèmes de polling
+            }
+        );
         socket.connect();
 
         set({ socket: socket });
