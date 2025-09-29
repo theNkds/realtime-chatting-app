@@ -21,5 +21,5 @@ async function connectDB(url) {
         .connect(url)
         .then(() => console.log("Database connected successfully"));
 }
- 
+
 export default connectDB; 
