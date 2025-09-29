@@ -3,7 +3,8 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { io, Socket } from "socket.io-client";
 
-const BASE_URL: string = import.meta.env.MODE === "development" ? "http://localhost:5001/" : "/";
+// const BASE_URL: string = import.meta.env.MODE === "development" ? "http://localhost:5001/" : "/";
+const BASE_URL: string = "https://realtime-chatting-app-yqaf.vercel.app/";
 // Définition du type utilisateur (à adapter selon ton backend)
 export interface AuthUser {
     _id: string;
